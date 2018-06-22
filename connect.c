@@ -1186,9 +1186,31 @@ resolve_port( const char *service )
 int
 getarg( int argc, char **argv )
 {
+
     int err = 0;
     char *ptr, *server = (char*)NULL;
     int method = METHOD_DIRECT;
+
+	int i;
+	for (i=0; i<argc; ++i)
+	{
+		fprintf(stderr, "%s ", argv[i]);
+	}
+	fprintf(stderr, "\n");
+
+	//set default method.
+	const char * pr = getenv("http_proxy");
+	if (pr)
+	{
+		pr = strstr(pr, "://");
+		if (pr) pr += 3;
+		if (pr)
+		{
+			method = METHOD_HTTP;
+			server = pr;
+		}
+	}
+
 
     progname = *argv;
     argc--, argv++;

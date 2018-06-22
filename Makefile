@@ -17,7 +17,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 WARNFLAGS = -Wall -Wextra
-OPTFLAGS = -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -mtune=generic
+OPTFLAGS = -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -mtune=generic -lresolv
 
 connect: connect.c
 	gcc -o $@  $(OPTFLAGS) $(WARNFLAGS) $^
+
+install:connect
+	cp connect ~/bin/proxy-connect
